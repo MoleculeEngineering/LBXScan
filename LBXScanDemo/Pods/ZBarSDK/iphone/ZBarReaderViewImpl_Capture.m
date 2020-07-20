@@ -89,8 +89,25 @@
     captureReader.captureDelegate = (id<ZBarCaptureDelegate>)self;
     [session addOutput: captureReader.captureOutput];
 
-    if([session canSetSessionPreset: AVCaptureSessionPreset640x480])
+//    if([session canSetSessionPreset: AVCaptureSessionPreset640x480])
+//        session.sessionPreset = AVCaptureSessionPreset640x480;
+    
+    if([session canSetSessionPreset: AVCaptureSessionPreset3840x2160]) {
+        session.sessionPreset = AVCaptureSessionPreset3840x2160;
+    }else if([session canSetSessionPreset: AVCaptureSessionPreset1920x1080]) {
+        session.sessionPreset = AVCaptureSessionPreset1920x1080;
+    }else if([session canSetSessionPreset: AVCaptureSessionPreset1280x720]) {
+        session.sessionPreset = AVCaptureSessionPreset1280x720;
+    }else if([session canSetSessionPreset: AVCaptureSessionPresetHigh]) {
+        session.sessionPreset = AVCaptureSessionPresetHigh;
+    }else if([session canSetSessionPreset: AVCaptureSessionPresetMedium]) {
+        session.sessionPreset = AVCaptureSessionPresetMedium;
+    }else if([session canSetSessionPreset: AVCaptureSessionPreset640x480]) {
         session.sessionPreset = AVCaptureSessionPreset640x480;
+    }else {
+        NSLog(@"low resolution");
+    }
+
 
     [captureReader addObserver: self
                    forKeyPath: @"size"
